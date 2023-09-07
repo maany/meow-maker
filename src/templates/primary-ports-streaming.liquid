@@ -1,0 +1,13 @@
+import { BaseAuthenticatedInputPort, BaseStreamingOutputPort } from "@/lib/sdk/primary-ports";
+import { {{ feature_camel_case }}Response, {{ feature_camel_case }}Request, {{ feature_camel_case }}Error } from "{{ core_import_path }}/usecase-models/{{ feature_kebab_case }}-usecase-models";
+
+/**
+ * @interface ListDIDRrulesInputPort that abstracts the usecase.
+ */
+export interface {{ feature_camel_case }}InputPort extends BaseAuthenticatedInputPort<{{ feature_camel_case }}Request> {}
+
+// TODO: Add viewmodel
+/**
+ * @interface {{ feature_camel_case }}OutputPort that abtrsacts the presenter
+ */
+export interface {{ feature_camel_case }}OutputPort extends BaseStreamingOutputPort<{{ feature_camel_case }}Response, {{ feature_camel_case }}Error, {{ feature_camel_case }}ViewModel> {}
