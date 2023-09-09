@@ -23,7 +23,7 @@ const config: TConfig = {
     },
     viewModel: {
         name: "ListDIDRulesViewModel",
-        importPath: "@/lib/infrastructure/data/view-model", 
+        importPath: "@/lib/infrastructure/data/view-model/did", 
         filePath: "/Users/maany/Projects/webui/tools/meow-maker/did.ts" // exact file path with the .ts extension
     },
     // usecase: {
@@ -56,7 +56,7 @@ console.log(viewModelAppendStatus)
 console.log("********************")
 
 
-const usecaseports = new PrimaryPortsGenerator(config)
+const usecaseports = new PrimaryPortsGenerator(config, true)
 console.log("********************")
 const primaryPortsStatus = usecaseports.execute()
 console.log(primaryPortsStatus)

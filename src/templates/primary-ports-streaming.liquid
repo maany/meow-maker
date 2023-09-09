@@ -1,13 +1,13 @@
-import { BaseAuthenticatedInputPort, BaseStreamingOutputPort } from "@/lib/sdk/primary-ports";
-import { {{ feature_camel_case }}Response, {{ feature_camel_case }}Request, {{ feature_camel_case }}Error } from "{{ core_import_path }}/usecase-models/{{ feature_kebab_case }}-usecase-models";
-
+import { BaseAuthenticatedInputPort, BaseStreamingOutputPort } from "{{ imports.cats }}/primary-ports";
+import { {{ feature.camel_case }}Response, {{ feature.camel_case }}Request, {{ feature.camel_case }}Error } from "{{ core_import_path }}/usecase-models/{{ feature_kebab_case }}-usecase-models";
+import { {{ viewModel.name }} } from "{{ viewModel.importPath }}";
 /**
- * @interface {{ feature_camel_case  }}InputPort that abstracts the usecase.
+ * @interface {{ feature.camel_case  }}InputPort that abstracts the usecase.
  */
-export interface {{ feature_camel_case }}InputPort extends BaseAuthenticatedInputPort<{{ feature_camel_case }}Request> {}
+export interface {{ feature.camel_case }}InputPort extends BaseAuthenticatedInputPort<{{ feature.camel_case }}Request> {}
 
 // TODO: Add viewmodel
 /**
- * @interface {{ feature_camel_case }}OutputPort that abtrsacts the presenter
+ * @interface {{ feature.camel_case }}OutputPort that abtrsacts the presenter
  */
-export interface {{ feature_camel_case }}OutputPort extends BaseStreamingOutputPort<{{ feature_camel_case }}Response, {{ feature_camel_case }}Error, {{ feature_camel_case }}ViewModel> {}
+export interface {{ feature.camel_case }}OutputPort extends BaseStreamingOutputPort<{{ feature.camel_case }}Response, {{ feature.camel_case }}Error, {{ viewModel.name  }}> {}

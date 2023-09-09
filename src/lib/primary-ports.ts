@@ -6,7 +6,7 @@ export default class PrimaryPortsGenerator extends BaseCompiledTemplate {
         config: TConfig,
         stream: boolean = false
     ) {
-        const templateName = stream ? "primary-ports-stream" : "primary-ports"
+        const templateName = stream ? "primary-ports-streaming" : "primary-ports"
         const outputFilePath = `${config.paths.project_root}/${config.paths.primary_ports_dir}/${config.feature.kebab_case}-ports.ts`
         super(config, outputFilePath, templateName)
     }
