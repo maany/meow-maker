@@ -16,23 +16,25 @@ export type TConfig = {
     paths: {
       project_root: string;
       usecase_models_dir: string;
+      primary_ports_dir: string;
     };
     imports: {
       core: string;
       infra: string;
       cats: string;
       usecase_models: string;
+      primary_ports: string;
     };
     feature: {
       camel_case: string;
       snake_case: string;
       kebab_case: string;
     };
-    // viewModel: {
-    //   name: string;
-    //   importPath: string;
-    //   filePath: string;
-    // };
+    viewModel: {
+      name: string;
+      importPath: string;
+      filePath: string;
+    };
     // usecase: {
     //   type: UseCaseTypes;
     //   single_endpoint: boolean;

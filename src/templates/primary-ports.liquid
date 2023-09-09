@@ -1,0 +1,12 @@
+import { BaseAuthenticatedInputPort, BaseOutputPort } from "{{ imports.cats }}/primary-ports";
+import { {{ feature.camel_case  }}Error, {{ feature.camel_case  }}Request, {{ feature.camel_case  }}Response } from "{{ imports.usecase_models }}/{{ feature.kebab_case }}-usecase-models";
+
+/**
+ * @interface {{ feature.camel_case  }}InputPort representing the {{ feature.camel_case  }} usecase.
+ */
+export interface {{ feature.camel_case  }}InputPort extends BaseAuthenticatedInputPort<{{ feature.camel_case  }}Request> {}
+
+/**
+ * @interface {{ feature.camel_case  }}OutputPort representing the {{ feature.camel_case  }} presenter.
+ */
+export interface {{ feature.camel_case  }}OutputPort extends BaseOutputPort<{{ feature.camel_case  }}Response, {{ feature.camel_case  }}Error> {}
