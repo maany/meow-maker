@@ -14,7 +14,8 @@ export default class ViewModelAppender extends BaseExistingFileAppender {
     }
     content(): string {
         const content = `export interface ${this.config.viewModel.name} extends BaseViewModel {}`
-        return content
+        const emptyFn = `export const getEmpty${this.config.viewModel.name} = (): ${this.config.viewModel.name} => { // TODO: return empty ${this.config.viewModel.name}`
+        return content + "\n" + emptyFn
     }
 
 }

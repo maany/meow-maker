@@ -1,0 +1,47 @@
+import {
+    {{ feature.camel_case }}Error,
+    {{ feature.camel_case }}Response,
+} from '{{ imports.usecase_models }}/{{ feature.kebab_case }}-usecase-models'
+import { NextApiResponse } from 'next'
+import { {{ viewModel.name }} } from '{{ viewModel.importPath }}'
+import { BaseStreamingPresenter } from '{{ imports.cats }}/presenter'
+import { {{ feature.camel_case }}OutputPort } from '{{ imports.primary_ports }}/{{ feature.kebab_case }}-ports'
+
+export default class {{ feature.camel_case }}Presenter extends BaseStreamingPresenter<{{ feature.camel_case }}Response, {{ feature.camel_case }}Error, {{ feature.camel_case }}ViewModel> implements {{ feature.camel_case }}OutputPort {
+    response: NextApiResponse<any>
+
+    constructor(response: NextApiResponse) {
+        super(response)
+        this.response = response
+    }
+
+    streamResponseModelToViewModel(responseModel: {{ feature.camel_case }}Response): {{ feature.camel_case }}ViewModel {
+        const viewModel: {{ feature.camel_case }}ViewModel = {
+            ...responseModel,
+        }
+        return viewModel
+    }
+
+    streamErrorModelToViewModel(error: {{ feature.camel_case }}Error): {{ feature.camel_case }}ViewModel {
+        const viewModel: {{ viewModel.name }} = getEmpty{{ viewModel.name }}();
+        // TODO: add error handling
+        return viewModel
+    }
+
+    /**
+     * Converts an error model to an error view model.
+     * @param errorModel The error model to convert.
+     * @returns The error view model that represents the error model.
+     */
+     convertErrorModelToViewModel(errorModel: {{ feature.camel_case }}Error): { viewModel: {{ viewModel.name }}; status: number; } {
+        const viewModel: {{ viewModel.name }} = getEmpty{{ viewModel.name }}();
+        let status = 400;
+        // switch (errorModel.error) {
+            TODO: add error handling
+        // }
+        return {
+            status: status,
+            viewModel: viewModel
+        }
+    }
+}

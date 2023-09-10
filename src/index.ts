@@ -1,3 +1,4 @@
+import PresenterGenerator from "./lib/presenter"
 import PrimaryPortsGenerator from "./lib/primary-ports"
 import { TConfig } from "./lib/types"
 import UseCaseModelsGenerator from "./lib/usecase-models"
@@ -60,3 +61,9 @@ const usecaseports = new PrimaryPortsGenerator(config, true)
 console.log("********************")
 const primaryPortsStatus = usecaseports.execute()
 console.log(primaryPortsStatus)
+
+
+const presenter = new PresenterGenerator(config, false)
+console.log("********************")
+const presenterStatus = presenter.execute()
+console.log(presenterStatus)
