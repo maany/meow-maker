@@ -1,9 +1,9 @@
 import { BasePresenter } from "{{ imports.cats }}/presenter";
-import { {{ feature.camel_case }}Error, {{ feature.camel_case }}Response } from "{{ imports.usecase_models }}/{{ feature.kebab_case }}-usecase-models";
+import { {{ feature.CamelCase }}Error, {{ feature.CamelCase }}Response } from "{{ imports.usecase_models }}/{{ feature.kebab_case }}-usecase-models";
 import { getEmpty{{ viewModel.name }}, {{ viewModel.name }} } from "{{ viewModel.importPath }}";
 
-export default class {{ feature.camel_case }}Presenter extends BasePresenter<{{ feature.camel_case }}Response, {{ feature.camel_case }}Error, SubscriptionViewModel> {
-    convertResponseModelToViewModel(responseModel: {{ feature.camel_case }}Response): { viewModel: {{ viewModel.name }}; status: number; } {
+export default class {{ feature.CamelCase }}Presenter extends BasePresenter<{{ feature.CamelCase }}Response, {{ feature.CamelCase }}Error, SubscriptionViewModel> {
+    convertResponseModelToViewModel(responseModel: {{ feature.CamelCase }}Response): { viewModel: {{ viewModel.name }}; status: number; } {
         const viewModel: {{ viewModel.name  }} = {
             ...responseModel,
         }
@@ -12,7 +12,7 @@ export default class {{ feature.camel_case }}Presenter extends BasePresenter<{{ 
             viewModel: viewModel
         }
     }
-    convertErrorModelToViewModel(errorModel: {{ feature.camel_case }}Error): { viewModel: {{ viewModel.name }}; status: number; } {
+    convertErrorModelToViewModel(errorModel: {{ feature.CamelCase }}Error): { viewModel: {{ viewModel.name }}; status: number; } {
         const viewModel: {{ viewModel.name }} = getEmpty{{ viewModel.name }}();
         let status = 400;
         // switch (errorModel.error) {

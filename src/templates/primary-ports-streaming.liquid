@@ -1,13 +1,13 @@
 import { BaseAuthenticatedInputPort, BaseStreamingOutputPort } from "{{ imports.cats }}/primary-ports";
-import { {{ feature.camel_case }}Response, {{ feature.camel_case }}Request, {{ feature.camel_case }}Error } from "{{ core_import_path }}/usecase-models/{{ feature_kebab_case }}-usecase-models";
+import { {{ feature.CamelCase }}Response, {{ feature.CamelCase }}Request, {{ feature.CamelCase }}Error } from "{{ core_import_path }}/usecase-models/{{ feature_kebab_case }}-usecase-models";
 import { {{ viewModel.name }} } from "{{ viewModel.importPath }}";
 /**
- * @interface {{ feature.camel_case  }}InputPort that abstracts the usecase.
+ * @interface {{ feature.CamelCase  }}InputPort that abstracts the usecase.
  */
-export interface {{ feature.camel_case }}InputPort extends BaseAuthenticatedInputPort<{{ feature.camel_case }}Request> {}
+export interface {{ feature.CamelCase }}InputPort extends BaseAuthenticatedInputPort<{{ feature.CamelCase }}Request> {}
 
 // TODO: Add viewmodel
 /**
- * @interface {{ feature.camel_case }}OutputPort that abtrsacts the presenter
+ * @interface {{ feature.CamelCase }}OutputPort that abtrsacts the presenter
  */
-export interface {{ feature.camel_case }}OutputPort extends BaseStreamingOutputPort<{{ feature.camel_case }}Response, {{ feature.camel_case }}Error, {{ viewModel.name  }}> {}
+export interface {{ feature.CamelCase }}OutputPort extends BaseStreamingOutputPort<{{ feature.CamelCase }}Response, {{ feature.CamelCase }}Error, {{ viewModel.name  }}> {}

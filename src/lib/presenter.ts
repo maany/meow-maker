@@ -7,7 +7,7 @@ export default class PresenterGenerator extends BaseCompiledTemplate {
         stream: boolean = false
     ) {
         const templateName = stream ? "presenter-streaming" : "presenter"
-        const outputFilePath = `${config.paths.project_root}/${config.paths.primary_ports_dir}/${config.feature.kebab_case}-ports.ts`
+        const outputFilePath = `${config.paths.project_root}/${config.paths.presenters_dir}/${config.feature.kebab_case}-presenter.ts`
         super(config, outputFilePath, templateName)
     }
 

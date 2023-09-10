@@ -17,6 +17,9 @@ export type TConfig = {
       project_root: string;
       usecase_models_dir: string;
       primary_ports_dir: string;
+      presenters_dir: string;
+      controllers_dir: string;
+      usecases_dir: string;
     };
     imports: {
       core: string;
@@ -24,9 +27,13 @@ export type TConfig = {
       cats: string;
       usecase_models: string;
       primary_ports: string;
+      presenter: string;
+      controller: string;
+      usecase: string;
     };
     feature: {
-      camel_case: string;
+      CamelCase: string;
+      varCamelCase: string;
       snake_case: string;
       kebab_case: string;
     };
@@ -35,6 +42,28 @@ export type TConfig = {
       importPath: string;
       filePath: string;
     };
+    stream?: {
+      dto: {
+        name: string
+        importPath: string
+        filePath: string
+      }
+    }
+    gateway?: {
+      name: string;
+      kebab_case: string;
+      importPath: string;
+      output_port: {
+        name: string;
+        importPath: string;
+      };
+      endpoint_fn: string;
+      dto: {
+        name: string;
+        importPath: string;
+        filePath: string;
+      }
+    }
     // usecase: {
     //   type: UseCaseTypes;
     //   single_endpoint: boolean;

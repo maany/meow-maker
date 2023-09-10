@@ -1,0 +1,25 @@
+import { injectable } from "inversify";
+import { BaseUseCase } from "{{ imports.cats}}/usecase"
+import { AuthenticatedRequestModel } from "{{ imports.cats}}/usecase-models";
+import {{ feature.CamelCase}}Presenter from "{{ imports.presenter}}/{{ feature.kebab_case}}-presenter";
+import { {{ feature.CamelCase}}InputPort } from "{{  imports.primary_ports }}/{{ feature.kebab_case}}-ports";
+import { {{ feature.CamelCase}}Error, {{ feature.CamelCase}}Request, {{ feature.CamelCase}}Response } from "{{  imports.usecase_models }}/{{ feature.kebab_case}}-usecase-models";
+
+@injectable()
+export default class {{ feature.CamelCase}}UseCase extends BaseUseCase<AuthenticatedRequestModel<{{ feature.CamelCase}}Request>, {{ feature.CamelCase}}Response, {{ feature.CamelCase}}Error> implements {{ feature.CamelCase}}InputPort {
+    constructor(
+        protected readonly presenter: {{ imports.presenter}},
+        // TODO: add gateways here
+        // private readonly gateway: GatewayPort,
+    ) {
+        super(presenter);
+    }
+
+    validateRequestModel(requestModel: AuthenticatedRequestModel<{{ feature.CamelCase}}Request>): {{ feature.CamelCase}}Error | undefined {
+        throw new Error("Method not implemented.");
+    }
+
+    execute(requestModel: {{ feature.CamelCase}}Request): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
+}

@@ -1,0 +1,35 @@
+import { injectable } from "inversify";
+import { Transform, Readable, PassThrough } from "stream";
+import { AuthenticatedRequestModel } from "{{imports.cats}}/usecase-models";
+import { {{stream.dto.name}} } from "{{stream.dto.importPath}}";
+import { {{feature.CamelCase}}InputPort } from "{{ imports.primary_ports }}/{{feature.kebab_case}}-ports";
+import { {{feature.CamelCase}}Error, {{feature.CamelCase}}Request, {{feature.CamelCase}}Response } from "{{ imports.usecase_models  }}/{{feature.kebab_case}}-usecase-models";
+
+@injectable()
+export default class {{feature.CamelCase}}UseCase extends BaseStreamingUseCase<AuthenticatedRequestModel<{{feature.CamelCase}}Request>, {{feature.CamelCase}}Response, {{feature.CamelCase}}Error, {{stream.dto.name}}, {{viewModel.name}}> implements {{feature.CamelCase}}InputPort {
+  constructor(
+    protected readonly presenter: {{imports.presenter}},
+    // TODO: add gateways here
+    // private readonly gateway: GatewayPort,
+  ) {
+    super(presenter);
+  }
+
+  validateRequestModel(requestModel: AuthenticatedRequestModel<AuthenticatedRequestModel<{{feature.CamelCase}}Request>>): {{feature.CamelCase}}Error | undefined {
+    return undefined;
+  }
+  
+  generateSourceStream(requestModel: AuthenticatedRequestModel<AuthenticatedRequestModel<{{feature.CamelCase}}Request>>): Promise<{ status: "success" | "error"; stream?: Transform | Readable | PassThrough | null | undefined; error?: {{feature.CamelCase}}Error | undefined; }> {
+    throw new Error("Method not implemented.");
+  }
+  
+  processStreamedData(dto: {{stream.dto.name}}): { data: {{feature.CamelCase}}Response | {{feature.CamelCase}}Error; status: "success" | "error"; } {
+    return {
+        data: {
+            ...dto
+        },
+        status: "success"
+    }
+  }
+  
+}
