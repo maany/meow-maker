@@ -85,3 +85,19 @@ export enum UseCaseTypes {
     BaseSingleEndpointPostProcessingPipelineUseCase = "BaseSingleEndpointPostProcessingPipelineUseCase",
     BaseSingleEndpointPostProcessingPipelineStreamingUseCase = "BaseSingleEndpointPostProcessingPipelineStreamingUseCase",
 }
+
+export type TTemplateGeneratorOutput = {
+  status: boolean,
+  message: string
+  content: string
+  file: string
+
+} 
+
+export type TTemplateAppenderOutput = {
+  status: boolean,
+  message: string
+  content: string
+  importSection: string | undefined
+  file: string
+}

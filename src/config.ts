@@ -1,14 +1,6 @@
-import ControllerGenerator from "./lib/controller"
-import { FeatureGenerator } from "./lib/feature"
-import PipelineElementGenerator from "./lib/pipeline-element"
-import PresenterGenerator from "./lib/presenter"
-import PrimaryPortsGenerator from "./lib/primary-ports"
-import { TConfig } from "./lib/types"
-import { BaseUseCaseGenerator, SingleEndpointUseCaseGenerator, UseCasePostProcessingPipelineGenerator } from "./lib/usecase"
-import UseCaseModelsGenerator from "./lib/usecase-models"
-import ViewModelAppender from "./lib/viewmodel-appender"
+import { TConfig } from "./lib/generators/types";
 
-const config: TConfig = {
+const Config: TConfig = {
     paths: {
         project_root: "/Users/maany/Projects/webui",
         usecase_models_dir: `src/lib/core/usecase-models`,
@@ -85,64 +77,4 @@ const config: TConfig = {
     ]
 }
 
-
-const usecase_models_generator = new UseCaseModelsGenerator(config)
-console.log("********************")
-const { content, file } = usecase_models_generator.execute()
-console.log(file)
-console.log(content)
-console.log("********************")
-
-
-const view_model_appender = new ViewModelAppender(config)
-console.log("********************")
-const viewModelAppendStatus = view_model_appender.execute()
-console.log(viewModelAppendStatus)
-console.log("********************")
-
-
-const usecaseports = new PrimaryPortsGenerator(config, true)
-console.log("********************")
-const primaryPortsStatus = usecaseports.execute()
-console.log(primaryPortsStatus)
-
-
-const presenter = new PresenterGenerator(config, false)
-console.log("********************")
-const presenterStatus = presenter.execute()
-console.log(presenterStatus)
-
-
-const controller = new ControllerGenerator(config)
-console.log("********************")
-const controllerStatus = controller.execute()
-console.log(controllerStatus)
-
-
-const usecase = new BaseUseCaseGenerator(config, true)
-console.log("********************")
-const usecaseStatus = usecase.execute()
-console.log(usecaseStatus)
-
-
-const singleEndpointUseCase = new SingleEndpointUseCaseGenerator(config, true)
-console.log("********************")
-const singleEndpointUseCaseStatus = singleEndpointUseCase.execute()
-console.log(singleEndpointUseCaseStatus)
-
-
-// const pipelineElement = new PipelineElementGenerator(config, 0, false)
-// console.log("********************")
-// const pipelineElementStatus = pipelineElement.execute()
-// console.log(pipelineElementStatus)
-
-const pipelineUseCase = new UseCasePostProcessingPipelineGenerator(config, false)
-console.log("********************")
-const pipelineUseCaseStatus = pipelineUseCase.execute()
-console.log(pipelineUseCaseStatus)
-
-
-const feature = new FeatureGenerator(config, true)
-console.log("********************")
-const featureStatus = feature.execute()
-console.log(featureStatus)
+export default Config;

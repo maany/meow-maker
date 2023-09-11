@@ -1,4 +1,4 @@
-import { TConfig } from "./types";
+import { TConfig, TTemplateAppenderOutput, TTemplateGeneratorOutput } from "./types";
 import { existsSync } from "fs";
 import { Liquid } from "liquidjs";
 import { readFileSync, writeFileSync } from "fs";
@@ -21,13 +21,7 @@ export class BaseCompiledTemplate {
         })
     } 
 
-    execute(): {
-        status: boolean,
-        message: string
-        content: string
-        file: string
-
-    } {
+    execute(): TTemplateGeneratorOutput {
         try {
             console.log(`rendering template ${this.templateName}`)
             const content = this.engine.renderFileSync(this.templateName, this.config)
@@ -66,13 +60,7 @@ export abstract class BaseExistingFileAppender {
 
     abstract content(): string
 
-    execute(): {
-        status: boolean,
-        message: string
-        content: string
-        importSection: string | undefined
-        file: string
-    } {
+    execute(): TTemplateAppenderOutput {
         if(!this.write) {
             console.log(`write flag is false, not writing to ${this.outputFilePath}`)
             return {
