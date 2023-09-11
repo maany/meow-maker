@@ -12,6 +12,28 @@ export type TValues = {
     usecase_streaming_content: string;
 }
 
+export type TGateway = {
+    name: string;
+    kebab_case: string;
+    importPath: string;
+    output_port: {
+      name: string;
+      importPath: string;
+    };
+    endpoint_fn: string;
+    dto: {
+      name: string;
+      importPath: string;
+      filePath: string;
+    }
+}
+
+export type TPipelineElement = {
+  gateway: TGateway
+  name: string
+  kebab_case: string
+}
+
 export type TConfig = {
     paths: {
       project_root: string;
@@ -49,33 +71,9 @@ export type TConfig = {
         filePath: string
       }
     }
-    gateway?: {
-      name: string;
-      kebab_case: string;
-      importPath: string;
-      output_port: {
-        name: string;
-        importPath: string;
-      };
-      endpoint_fn: string;
-      dto: {
-        name: string;
-        importPath: string;
-        filePath: string;
-      }
-    }
-    // usecase: {
-    //   type: UseCaseTypes;
-    //   single_endpoint: boolean;
-    //   post_processing_pipeline: boolean;
-    // };
-    // gateway: {
-    //   name: string;
-    //   filename: string;
-    //   output_port: string;
-    //   dto: string;
-    //   streamDTO: string;
-    // };
+    gateway?: TGateway
+    pipeline?: [TPipelineElement]
+    current_pipeline_element?: TPipelineElement 
 };
 
 export enum UseCaseTypes {

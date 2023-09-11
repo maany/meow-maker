@@ -1,4 +1,5 @@
 import ControllerGenerator from "./lib/controller"
+import PipelineElementGenerator from "./lib/pipeline-element"
 import PresenterGenerator from "./lib/presenter"
 import PrimaryPortsGenerator from "./lib/primary-ports"
 import { TConfig } from "./lib/types"
@@ -59,18 +60,27 @@ const config: TConfig = {
             filePath: "/Users/maany/Projects/webui/tools/meow-maker/did.ts"
         }
     },
-    // usecase: {
-    //     type: UseCaseTypes.BaseUseCase,
-    //     single_endpoint: true,
-    //     post_processing_pipeline: true,
-    // },
-    // gateway: {
-    //     name: "DIDGateway",
-    //     filename: "did-gateway-output-port",
-    //     output_port: "DIDGatewayOutputPort",
-    //     dto: "DIDDTO",
-    //     streamDTO: "ListDIDDTO",
-    // }
+    pipeline: [
+        {
+            name: "GetSubcriptionListDIDsPipelineElement",
+            kebab_case: "get-subscriptions-pipeline-element",
+            gateway: {
+                name: "SubscriptionsGateway",
+                kebab_case: "subscriptions-gateway",
+                importPath: "@/lib/infrastructure/gateway/subscriptions",
+                output_port: {
+                    name: "SubscriptionsGatewayOutputPort",
+                    importPath: "@/lib/core/ports/secondary/subscriptions-gateway-output-port",
+                },
+                endpoint_fn: "getSubscriptions",
+                dto: {
+                    name: "GetSubscriptionsDTO",
+                    importPath: "@/lib/core/data/dto/subscriptions",
+                    filePath: "/Users/maany/Projects/webui/tools/meow-maker/subscriptions.ts"
+                }
+            }
+        }
+    ]
 }
 
 
@@ -117,3 +127,9 @@ const singleEndpointUseCase = new SingleEndpointUseCaseGenerator(config, true)
 console.log("********************")
 const singleEndpointUseCaseStatus = singleEndpointUseCase.execute()
 console.log(singleEndpointUseCaseStatus)
+
+
+const pipelineElement = new PipelineElementGenerator(config, 0, true)
+console.log("********************")
+const pipelineElementStatus = pipelineElement.execute()
+console.log(pipelineElementStatus)

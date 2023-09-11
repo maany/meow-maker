@@ -26,11 +26,22 @@ export default class {{feature.CamelCase}}UseCase extends BaseSingleEndpointStre
     }
 
     async makeGatewayRequest(requestModel: AuthenticatedRequestModel<{{feature.CamelCase}}Request>): Promise<{{gateway.dto}}> {
-        // TODO: pass parameters to gateway function
-        const dto = await this.gateway.{{gateway.endpoint_fn}}(requestModel.rucioAuthToken);
-        // TODO: convert to DTO and return DTO object
-        return dto
+        try {
+            // TODO: pass parameters to gateway function
+            const dto = await this.gateway.{{gateway.endpoint_fn}}(requestModel.rucioAuthToken);
+            // TODO: convert to DTO and return DTO object
+            return dto;
+        } catch(error: any ) {
+            const errorModel: {{feature.CamelCase}}Error = {
+            status: 'error',
+            name: dto.name,
+            error: error,
+            code: dto.errorCode? dto.errorCode : 400,
+            message: dto.errorName + ': ' + dto.errorMessage + ',
+            return errorModel;
+        }
     }
+    
     handleGatewayError(error: {{gateway.dto}}): {{feature.CamelCase}}Error {
         return {
             error: error.error,
