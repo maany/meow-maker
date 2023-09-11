@@ -9,7 +9,8 @@ export class BaseCompiledTemplate {
     constructor(
         protected config: TConfig, 
         protected outputFilePath: string,
-        protected templateName: string, 
+        protected templateName: string,
+        protected write: boolean = false
     ) {
         const templateDir = `${__dirname}/../templates`
         const templatePath = `${templateDir}/${templateName}.liquid`
@@ -25,6 +26,9 @@ export class BaseCompiledTemplate {
         try {
             console.log(`rendering template ${this.templateName}`)
             const content = this.engine.renderFileSync(this.templateName, this.config)
+            if(this.write) {
+                writeFileSync(this.outputFilePath, content)
+            }
             console.log(`output file ${this.outputFilePath} created`)
             return {
                 status: true,
