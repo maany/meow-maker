@@ -1,0 +1,95 @@
+import { BaseSingleEndpointPostProcessingPipelineStreamingUseCase } from "{{ imports.cats }}/usecase";
+import { AuthenticatedRequestModel } from "{{ imports.cats }}/usecase-models";
+
+import { {{ feature.CamelCase }}Error, {{ feature.CamelCase }}Request, {{ feature.CamelCase }}Response } from "{{ imports.usecase_models }}/{{ feature.kebab_case }}-usecase-models";
+import { {{ viewModel.name }} } from "{{ viewModel.importPath }}";
+
+import type {{ gateway.output_port.name }} from "{{ gateway.output_port.importPath }}";
+import { {{ gateway.dto.name }} } from "{{ gateway.dto.importPath }}";
+import { {{ stream.dto.name }} } from "{{ stream.dto.importPath }}";
+
+{% for pipelineElement in pipeline %}
+import {{ pipelineElement.name }} from "./{{ pipelineElement.kebab_case }}";
+import type {{ pipelineElement.gateway.output_port.name }} from "{{ pipelineElement.gateway.output_port.importPath }}";
+{% endfor %}
+
+@injectable()
+export default class {{ feature.CamelCase }}UseCase extends BaseSingleEndpointPostProcessingPipelineStreamingUseCase<{{ feature.CamelCase }}Request, {{ feature.CamelCase }}Response, {{ feature.CamelCase }}Error, {{ gateway.dto.name }}, {{ stream.dto.name }}, {{ viewModel.name }}> implements {{ feature.CamelCase }}InputPort {
+
+  constructor(
+    protected readonly presenter: {{ feature.CamelCase }}OutputPort,
+    private readonly gateway: {{ gateway.output_port.name }},
+    {% for pipelineElement in pipeline %}
+    private readonly {{ pipelineElement.gateway.name | camelCase }}: {{ pipelineElement.gateway.output_port.name }},
+    {% endfor %}
+  ) {
+    // TODO check if right gateways are passed to the pipeline elements
+    const pipelineElements = [
+      {% for pipelineElement in pipeline %}
+      new {{ pipelineElement.name }}(this.{{ pipelineElement.gateway.name | camelCase }} as {{ pipelineElement.gateway.output_port.name }}),
+      {% endfor %}
+    ];
+    super(presenter, pipelineElements);
+  }
+
+  validateRequestModel(requestModel: AuthenticatedRequestModel<{{ feature.CamelCase }}Request>): {{ feature.CamelCase }}Error | undefined {
+    return undefined
+  }
+
+  async makeGatewayRequest(requestModel: AuthenticatedRequestModel<{{ feature.CamelCase }}Request>): Promise<{{ gateway.dto.name }}> {
+    try {
+            // TODO: pass parameters to gateway function
+            const dto = await this.gateway.{{gateway.endpoint_fn}}(requestModel.rucioAuthToken);
+            // TODO: convert to DTO and return DTO object
+            return dto;
+        } catch(error: any ) {
+                const errorModel: {{feature.CamelCase}}Error = {
+                status: 'error',
+                name: dto.name,
+                error: error,
+                code: dto.errorCode? dto.errorCode : 400,
+                message: dto.errorName + ': ' + dto.errorMessage + ',
+                return errorModel;
+            }
+        }
+  }
+
+  handleGatewayError(error: {{ gateway.dto.name }}): {{ feature.CamelCase }}Error {
+    return {
+            error: error.error,
+            message: error.message,
+            status: error.status
+    } as {{feature.CamelCase}}Error;
+  }
+
+  processStreamedData(dto: {{ stream.dto.name }}): { data: {{ feature.CamelCase }}Response | {{ feature.CamelCase }}Error; status: "success" | "error"; } {
+    // TODO: process streamed data
+    const errorModel: {{ feature.CamelCase }}Error = {
+            status: 'error',
+            code: 400,
+            error: 'Invalid Request',
+            message: 'Gateway recieved an invalid (undefined) response for the query',
+            name: 'Gateway Error: Undefined response in stream',
+        }
+    if(dto.name === undefined) {
+        return {
+            status: 'error',
+            data: errorModel,
+        }
+    }
+    // TODO: convert to response model
+    const responseModel: {{ feature.CamelCase }}Response = {
+        status: 'success',
+    }
+    return {
+        status: 'success',
+        data: responseModel,
+    }
+  }
+
+  validateFinalResponseModel(responseModel: {{ feature.CamelCase }}Response ): { isValid: boolean; errorModel?: {{ feature.CamelCase  }}Error | undefined; } {
+        return {
+            isValid: true,
+        }
+  }
+}

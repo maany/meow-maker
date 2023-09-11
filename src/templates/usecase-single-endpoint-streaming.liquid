@@ -51,6 +51,28 @@ export default class {{feature.CamelCase}}UseCase extends BaseSingleEndpointStre
     }
 
     processStreamedData(dto: {{stream.dto.name}}): { data: {{feature.CamelCase}}Response | {{feature.CamelCase}}Error; status: "success" | "error"; } {
-        throw new Error("Method not implemented.");
+        // TODO: process streamed data
+        const errorModel: {{ feature.CamelCase }}Error = {
+                status: 'error',
+                code: 400,
+                error: 'Invalid Request',
+                message: 'Gateway recieved an invalid (undefined) response for the query',
+                name: 'Gateway Error: Undefined response in stream',
+            }
+        if(dto.name === undefined) {
+            return {
+                status: 'error',
+                data: errorModel,
+            }
+        }
+        / TODO: convert to response model
+        const responseModel: {{ feature.CamelCase }}Response = {
+            status: 'success',
+            name: dto.name,
+        }
+        return {
+            status: 'success',
+            data: responseModel,
+        }
     }
 }

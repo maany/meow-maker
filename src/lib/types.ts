@@ -42,6 +42,7 @@ export type TConfig = {
       presenters_dir: string;
       controllers_dir: string;
       usecases_dir: string;
+      features_dir: string
     };
     imports: {
       core: string;

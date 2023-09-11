@@ -1,0 +1,61 @@
+import {{gateway.output_port.importPath}} from "{{gateway.output_port.importPath}}"
+import {
+    {{feature.CamelCase}}Error,
+    {{feature.CamelCase}}Request,
+    {{feature.CamelCase}}Response,
+} from "{{imports.usecase_models}}/{{feature.kebab_case}}-usecase-models"
+import { {{feature.CamelCase}}ControllerParameters } from "{{imports.controller}}/{{feature.kebab_case}}-controller"
+import {{feature.CamelCase}}Controller from "{{imports.controller}}/{{feature.kebab_case}}-controller"
+import { {{viewModel.name}} } from "{{viewModel.importPath}}"
+import {
+    BaseFeature,
+    IFeature,
+    IOCSymbols,
+} from "{{imports.cats}}/ioc-helpers"
+import GATEWAYS from "{{imports.infra}}/ioc/ioc-symbols-gateway"
+import CONTROLLERS from "{{imports.infra}}/ioc/ioc-symbols-controllers"
+import INPUT_PORT from "{{imports.infra}}/ioc/ioc-symbols-input-port"
+import USECASE_FACTORY from "{{imports.infra}}/ioc/ioc-symbols-usecase-factory"
+import { Container } from 'inversify'
+import {{feature.CamelCase}}UseCase from "{{imports.usecase}}/{{feature.kebab_case}}/{{feature.kebab_case}}-usecase"
+import {{feature.CamelCase}}Presenter from "{{imports.presenter}}/{{feature.kebab_case}}-presenter"
+
+{% for pipelineElement in pipeline %}
+    import {{ pipelineElement.name }} from "./{{ pipelineElement.kebab_case }}";
+    import type {{ pipelineElement.gateway.output_port.name }} from "{{ pipelineElement.gateway.output_port.importPath }}";
+{% endfor %}
+
+export default class {{feature.CamelCase}}Feature extends BaseFeature<
+    {{feature.CamelCase}}ControllerParameters,
+    {{feature.CamelCase}}Request,
+    {{feature.CamelCase}}Response,
+    {{feature.CamelCase}}Error,
+    {{viewModel.name}}
+> {
+    constructor(appContainer: Container) {
+        const {{gateway.name | camelCase}} = appContainer.get<{{gateway.output_port.name}}>(GATEWAYS.{{gateway.name | upperCase}})
+        {% for pipelineElement in pipeline %}
+        const {{ pipelineElement.gateway.name | camelCase }}: {{ pipelineElement.gateway.output_port.name }} = appContainer.get<{{pipelineElement.gateway.output_port.name}}>(GATEWAYS.{{ pipelineElement.gateway.name | upperCase }}),
+        {% endfor %}
+        const symbols: IOCSymbols = {
+            CONTROLLER: CONTROLLERS.{{feature.varCamelCase | upperCase}},
+            USECASE_FACTORY: USECASE_FACTORY.{{feature.varCamelCase | upperCase}},
+            INPUT_PORT: INPUT_PORT.{{feature.varCamelCase | upperCase}},
+        }
+        const useCaseConstructorArgs = [
+            {{gateway.name | camelCase}},
+            {%  for pipelineElement in pipeline %}  
+            {{ pipelineElement.gateway.name | camelCase }},
+            {% endfor %}
+        ]
+        super(
+            '{{feature.CamelCase}}',
+            {{feature.CamelCase}}Controller,
+            {{feature.CamelCase}}UseCase,
+            useCaseConstructorArgs,
+            {{feature.CamelCase}}Presenter,
+            false,
+            symbols
+        )
+    }
+}

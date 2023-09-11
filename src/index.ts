@@ -1,9 +1,10 @@
 import ControllerGenerator from "./lib/controller"
+import { FeatureGenerator } from "./lib/feature"
 import PipelineElementGenerator from "./lib/pipeline-element"
 import PresenterGenerator from "./lib/presenter"
 import PrimaryPortsGenerator from "./lib/primary-ports"
 import { TConfig } from "./lib/types"
-import { BaseUseCaseGenerator, SingleEndpointUseCaseGenerator } from "./lib/usecase"
+import { BaseUseCaseGenerator, SingleEndpointUseCaseGenerator, UseCasePostProcessingPipelineGenerator } from "./lib/usecase"
 import UseCaseModelsGenerator from "./lib/usecase-models"
 import ViewModelAppender from "./lib/viewmodel-appender"
 
@@ -15,6 +16,7 @@ const config: TConfig = {
         presenters_dir: `src/lib/infrastructure/presenter`,
         controllers_dir: `src/lib/infrastructure/controller`,
         usecases_dir: `src/lib/core/use-case`,
+        features_dir: `src/lib/infrastructure/ioc/features`
     },
     imports: {
         core: "@/lib/core",
@@ -129,7 +131,18 @@ const singleEndpointUseCaseStatus = singleEndpointUseCase.execute()
 console.log(singleEndpointUseCaseStatus)
 
 
-const pipelineElement = new PipelineElementGenerator(config, 0, true)
+// const pipelineElement = new PipelineElementGenerator(config, 0, false)
+// console.log("********************")
+// const pipelineElementStatus = pipelineElement.execute()
+// console.log(pipelineElementStatus)
+
+const pipelineUseCase = new UseCasePostProcessingPipelineGenerator(config, false)
 console.log("********************")
-const pipelineElementStatus = pipelineElement.execute()
-console.log(pipelineElementStatus)
+const pipelineUseCaseStatus = pipelineUseCase.execute()
+console.log(pipelineUseCaseStatus)
+
+
+const feature = new FeatureGenerator(config, true)
+console.log("********************")
+const featureStatus = feature.execute()
+console.log(featureStatus)
