@@ -35,14 +35,14 @@ export const steps: ReadonlyArray<any> = [
     ACTION.Usecase,
     ACTION.Feature,
 ]
-function usecaseModels(config: TConfig): TTemplateGeneratorOutput {
-    const usecase_models_generator = new UseCaseModelsGenerator(config)
+function usecaseModels(config: TConfig, write: boolean): TTemplateGeneratorOutput {
+    const usecase_models_generator = new UseCaseModelsGenerator(config, write)
     const output = usecase_models_generator.execute()
     return output
 }
 
-function viewModel(config: TConfig): TTemplateAppenderOutput {
-    const view_model_appender = new ViewModelAppender(config)
+function viewModel(config: TConfig, write: boolean): TTemplateAppenderOutput {
+    const view_model_appender = new ViewModelAppender(config, write)
     const viewModelAppendStatus = view_model_appender.execute()
     return viewModelAppendStatus
 }
@@ -50,8 +50,9 @@ function viewModel(config: TConfig): TTemplateAppenderOutput {
 function primaryPorts(
     config: TConfig,
     stream: boolean = false,
+    write: boolean
 ): TTemplateGeneratorOutput {
-    const usecaseports = new PrimaryPortsGenerator(config, stream)
+    const usecaseports = new PrimaryPortsGenerator(config, stream, write)
     const primaryPortsStatus = usecaseports.execute()
     return primaryPortsStatus
 }
@@ -59,14 +60,15 @@ function primaryPorts(
 function presenter(
     config: TConfig,
     stream: boolean = false,
+    write: boolean
 ): TTemplateGeneratorOutput {
-    const presenter = new PresenterGenerator(config, stream)
+    const presenter = new PresenterGenerator(config, stream, write)
     const presenterStatus = presenter.execute()
     return presenterStatus
 }
 
-function controller(config: TConfig): TTemplateGeneratorOutput {
-    const controller = new ControllerGenerator(config)
+function controller(config: TConfig, write: boolean): TTemplateGeneratorOutput {
+    const controller = new ControllerGenerator(config, write)
     const controllerStatus = controller.execute()
     return controllerStatus
 }
@@ -74,8 +76,9 @@ function controller(config: TConfig): TTemplateGeneratorOutput {
 function usecase(
     config: TConfig,
     stream: boolean = false,
+    write: boolean
 ): TTemplateGeneratorOutput {
-    const usecase = new BaseUseCaseGenerator(config, stream)
+    const usecase = new BaseUseCaseGenerator(config, stream, write)
     const usecaseStatus = usecase.execute()
     return usecaseStatus
 }
@@ -83,10 +86,12 @@ function usecase(
 function singleEndpointUseCase(
     config: TConfig,
     stream: boolean = false,
+    write: boolean
 ): TTemplateGeneratorOutput {
     const singleEndpointUseCase = new SingleEndpointUseCaseGenerator(
         config,
         stream,
+        write
     )
     const singleEndpointUseCaseStatus = singleEndpointUseCase.execute()
     return singleEndpointUseCaseStatus
@@ -95,10 +100,12 @@ function singleEndpointUseCase(
 function pipelineUseCase(
     config: TConfig,
     stream: boolean = false,
+    write: boolean
 ): TTemplateGeneratorOutput {
     const pipelineUseCase = new UseCasePostProcessingPipelineGenerator(
         config,
         stream,
+        write
     )
     const pipelineUseCaseStatus = pipelineUseCase.execute()
     return pipelineUseCaseStatus
@@ -107,8 +114,9 @@ function pipelineUseCase(
 function feature(
     config: TConfig,
     stream: boolean = false,
+    write: boolean
 ): TTemplateGeneratorOutput {
-    const feature = new FeatureGenerator(config, stream)
+    const feature = new FeatureGenerator(config, stream, write)
     const featureStatus = feature.execute()
     return featureStatus
 }
@@ -124,41 +132,37 @@ export function execute(
     let output: TTemplateAppenderOutput | TTemplateGeneratorOutput
     switch (step) {
         case ACTION.UsecaseModels:
-            output = usecaseModels(config)
+            output = usecaseModels(config, write)
             break
         case ACTION.ViewModel:
-            output = viewModel(config)
+            output = viewModel(config, write)
             break
         case ACTION.PrimaryPorts:
-            output = primaryPorts(config, stream)
+            output = primaryPorts(config, stream, write)
             break
         case ACTION.Presenter:
-            output = presenter(config, stream)
+            output = presenter(config, stream, write)
             break
 
         case ACTION.Usecase:
             if (pipeline) {
-                output = pipelineUseCase(config, stream)
+                output = pipelineUseCase(config, stream, write)
                 break
             }
             if (singleEndpoint) {
-                output = singleEndpointUseCase(config, stream)
+                output = singleEndpointUseCase(config, stream, write)
                 break
             }
-            output = usecase(config, stream)
+            output = usecase(config, stream, write)
             break
         case ACTION.Controller:
-            output = controller(config)
+            output = controller(config, write)
             break
         case ACTION.Feature:
-            output = feature(config, stream)
+            output = feature(config, stream, write)
             break
         default:
             throw new Error('Invalid step')
-    }
-
-    if (write) {
-        console.log(`writing!!!`)
     }
     return output
 }

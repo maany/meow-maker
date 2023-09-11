@@ -5,7 +5,8 @@ import { TConfig, TPipelineElement } from "./types"
 export class BaseUseCaseGenerator extends BaseCompiledTemplate {
     constructor(
         config: TConfig,
-        stream: boolean = false
+        stream: boolean = false,
+        write: boolean = false
     ) {
         if(stream) {
             // check if config has stream properties
@@ -15,14 +16,15 @@ export class BaseUseCaseGenerator extends BaseCompiledTemplate {
         }
         const templateName = stream ? "usecase-base-streaming" : "usecase-base"
         const outputFilePath = `${config.paths.project_root}/${config.paths.usecases_dir}/${config.feature.kebab_case}-usecase.ts`
-        super(config, outputFilePath, templateName)
+        super(config, outputFilePath, templateName, write)
     }
 }
 
 export class SingleEndpointUseCaseGenerator extends BaseCompiledTemplate {
     constructor(
         config: TConfig,
-        stream: boolean = false
+        stream: boolean = false,
+        write: boolean = false
     ) {
         if(stream) {
             // check if config has stream properties
@@ -36,7 +38,7 @@ export class SingleEndpointUseCaseGenerator extends BaseCompiledTemplate {
         }
         const templateName = stream ? "usecase-single-endpoint-streaming" : "usecase-single-endpoint"
         const outputFilePath = `${config.paths.project_root}/${config.paths.usecases_dir}/${config.feature.kebab_case}-usecase.ts`
-        super(config, outputFilePath, templateName)
+        super(config, outputFilePath, templateName, write)
     }
 }
 
@@ -44,7 +46,8 @@ export class UseCasePostProcessingPipelineGenerator extends BaseCompiledTemplate
 
     constructor(
         config: TConfig,
-        stream: boolean = false
+        stream: boolean = false,
+        write: boolean = false
     ) {
         if(stream) {
             // check if config has stream properties
@@ -66,12 +69,12 @@ export class UseCasePostProcessingPipelineGenerator extends BaseCompiledTemplate
         }
         const templateName = stream ? "usecase-post-processing-pipeline-streaming" : "usecase-post-processing-pipeline"
         const outputFilePath = `${config.paths.project_root}/${config.paths.usecases_dir}/${config.feature.kebab_case}/${config.feature.kebab_case}-usecase.ts`
-        super(config, outputFilePath, templateName)
+        super(config, outputFilePath, templateName, write)
         
         for (let i = 0; i < config.pipeline.length; i++) {
             const pipelineElement = config.pipeline[i] as TPipelineElement
             console.log(`Generating pipeline element ${pipelineElement.name}`)
-            const generator = new PipelineElementGenerator(config, i, stream)
+            const generator = new PipelineElementGenerator(config, i, stream, write)
             const pipelineElementStatus = generator.execute()
             console.log(`Pipeline element ${pipelineElement.name} generated successfully.`)
             console.log(pipelineElementStatus)

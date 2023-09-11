@@ -5,7 +5,8 @@ export default class PipelineElementGenerator extends BaseCompiledTemplate {
     constructor(
         config: TConfig,
         index: number = 0,
-        stream: boolean = false
+        stream: boolean = false,
+        write: boolean = false
     ) {
         if(config.pipeline === undefined || config.pipeline.length > index + 1) {
             throw new Error("Pipeline Elements must be specified in the config")
@@ -14,6 +15,6 @@ export default class PipelineElementGenerator extends BaseCompiledTemplate {
         const outputFilePath = `${config.paths.project_root}/${config.paths.usecases_dir}/${config.feature.kebab_case}/pipeline-element-${config.pipeline[index].kebab_case}.ts`
         // deep copy config, add current_pipeline_element section
         config.current_pipeline_element = config.pipeline[index]
-        super(config, outputFilePath, templateName)
+        super(config, outputFilePath, templateName, write)
     }
 }
