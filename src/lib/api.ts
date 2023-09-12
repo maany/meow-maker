@@ -20,8 +20,8 @@ export enum ACTION {
     ViewModel = 'view_model',
     PrimaryPorts = 'primary_ports',
     Presenter = 'presenter',
-    Controller = 'controller',
     Usecase = 'usecase',
+    Controller = 'controller',
     Feature = 'feature',
 }
 
@@ -31,8 +31,8 @@ export const steps: ReadonlyArray<any> = [
     ACTION.ViewModel,
     ACTION.PrimaryPorts,
     ACTION.Presenter,
-    ACTION.Controller,
     ACTION.Usecase,
+    ACTION.Controller,
     ACTION.Feature,
 ]
 function usecaseModels(config: TConfig, write: boolean): TTemplateGeneratorOutput {
