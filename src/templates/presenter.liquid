@@ -12,14 +12,26 @@ export default class {{ feature.CamelCase }}Presenter extends BasePresenter<{{ f
             viewModel: viewModel
         }
     }
+    
     convertErrorModelToViewModel(errorModel: {{ feature.CamelCase }}Error): { viewModel: {{ viewModel.name }}; status: number; } {
         const viewModel: {{ viewModel.name }} = generateEmpty{{ viewModel.name }}();
-        let status = 400;
-        // switch (errorModel.error) {
-            TODO: add error handling
+        
+        // custom usecase errors, for example
+        // if(errorModel.name === 'Invalid Account') {
+        //     viewModel.message = errorModel.message;
+        //     return {
+        //         status: 400,
+        //         viewModel: viewModel
+        //     }
         // }
+
+        // gateway errors
+        const message = errorModel.message ? errorModel.message.toString() : errorModel.name;
+        const name = errorModel.name ? errorModel.name : '';
+        viewModel.message = message;
+        const errorCode = errorModel.code ? errorModel.code : 500;
         return {
-            status: status,
+            status: errorCode,
             viewModel: viewModel
         }
     }
