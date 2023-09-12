@@ -23,9 +23,11 @@ export default class {{ feature.CamelCase }}Presenter extends BaseStreamingPrese
     }
 
     streamErrorModelToViewModel(error: {{ feature.CamelCase }}Error): {{ viewModel.name }} {
-        const viewModel: {{ viewModel.name }} = generateEmpty{{ viewModel.name }}();
+        const errorViewModel: {{ viewModel.name }} = generateEmpty{{ viewModel.name }}();
         // TODO: add error handling
-        return viewModel
+        errorViewModel.status = 'error';
+        errorViewModel.message = `${error.name}: ${error.message}`;
+        return errorViewModel;
     }
 
     /**
@@ -35,12 +37,23 @@ export default class {{ feature.CamelCase }}Presenter extends BaseStreamingPrese
      */
      convertErrorModelToViewModel(errorModel: {{ feature.CamelCase }}Error): { viewModel: {{ viewModel.name }}; status: number; } {
         const viewModel: {{ viewModel.name }} = generateEmpty{{ viewModel.name }}();
-        let status = 400;
-        // switch (errorModel.error) {
-        // TODO: add error handling
+        
+        // custom usecase errors, for example
+        // if(errorModel.name === 'Invalid Account') {
+        //     viewModel.message = errorModel.message;
+        //     return {
+        //         status: 400,
+        //         viewModel: viewModel
+        //     }
         // }
+
+        // gateway errors
+        const message = errorModel.message ? errorModel.message.toString() : errorModel.name;
+        const name = errorModel.name ? errorModel.name : '';
+        viewModel.message = message;
+        const errorCode = errorModel.code ? errorModel.code : 500;
         return {
-            status: status,
+            status: errorCode,
             viewModel: viewModel
         }
     }
