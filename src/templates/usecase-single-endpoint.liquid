@@ -4,7 +4,6 @@ import { AuthenticatedRequestModel } from "{{imports.cats}}/usecase-models";
 
 import { {{feature.CamelCase}}Error, {{feature.CamelCase}}Request, {{feature.CamelCase}}Response } from "{{ imports.usecase_models }}/{{feature.kebab_case}}-usecase-models";
 import { {{feature.CamelCase}}InputPort, type {{ feature.CamelCase }}OutputPort } from "{{ imports.primary_ports }}/{{feature.kebab_case}}-ports";
-import {{ feature.CamelCase  }}Presenter from {{imports.presenter}}/{{ feature.kebab_case }}-presenter";
 
 import { {{gateway.dto.name}} } from "{{ gateway.dto.importPath }}";
 import type {{gateway.output_port.name}} from "{{ gateway.output_port.importPath }}";
@@ -13,7 +12,7 @@ import type {{gateway.output_port.name}} from "{{ gateway.output_port.importPath
 export default class {{feature.CamelCase}}UseCase extends BaseSingleEndpointUseCase<AuthenticatedRequestModel<{{feature.CamelCase}}Request>, {{feature.CamelCase}}Response, {{feature.CamelCase}}Error, {{gateway.dto.name}}> implements {{feature.CamelCase}}InputPort {
    
     constructor(
-        protected readonly presenter: {{feature.CamelCase}}Presenter,
+        protected readonly presenter: {{feature.CamelCase}}OutputPort,
         private readonly gateway: {{gateway.output_port.name}},
     ) {
         super(presenter);

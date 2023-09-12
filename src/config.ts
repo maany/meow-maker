@@ -47,7 +47,7 @@ const Config: TConfig = {
         importPath: "@/lib/infrastructure/gateway/did-gateway/did-gateway",
         output_port: {
             name: "DIDGatewayOutputPort",
-            importPath: "@/lib/core/ports/secondary/did-gateway-output-port",
+            importPath: "@/lib/core/port/secondary/did-gateway-output-port",
         },
         endpoint_fn: "listDIDParents",
         dto: {
@@ -66,7 +66,7 @@ const Config: TConfig = {
     //             importPath: "@/lib/infrastructure/gateway/subscriptions",
     //             output_port: {
     //                 name: "SubscriptionsGatewayOutputPort",
-    //                 importPath: "@/lib/core/ports/secondary/subscriptions-gateway-output-port",
+    //                 importPath: "@/lib/core/port/secondary/subscriptions-gateway-output-port",
     //             },
     //             endpoint_fn: "getSubscriptions",
     //             dto: {
