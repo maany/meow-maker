@@ -28,8 +28,8 @@ export class BaseCompiledTemplate {
             const content = this.engine.renderFileSync(this.templateName, this.config)
             if(this.write) {
                 writeFileSync(this.outputFilePath, content)
+                console.log(`output file ${this.outputFilePath} created`)
             }
-            console.log(`output file ${this.outputFilePath} created`)
             return {
                 status: true,
                 message: `output file ${this.outputFilePath} created`,
