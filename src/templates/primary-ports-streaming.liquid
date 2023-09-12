@@ -1,5 +1,5 @@
 import { BaseAuthenticatedInputPort, BaseStreamingOutputPort } from "{{ imports.cats }}/primary-ports";
-import { {{ feature.CamelCase }}Response, {{ feature.CamelCase }}Request, {{ feature.CamelCase }}Error } from "{{ core_import_path }}/usecase-models/{{ feature_kebab_case }}-usecase-models";
+import { {{ feature.CamelCase }}Response, {{ feature.CamelCase }}Request, {{ feature.CamelCase }}Error } from "{{ imports.usecase_models }}/{{ feature.kebab_case }}-usecase-models";
 import { {{ viewModel.name }} } from "{{ viewModel.importPath }}";
 /**
  * @interface {{ feature.CamelCase  }}InputPort that abstracts the usecase.
