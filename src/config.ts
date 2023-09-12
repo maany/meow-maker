@@ -43,7 +43,10 @@ const Config: TConfig = {
     },
     gateway: {
         name: "DIDGateway",
+        varCamelCase: "didGateway",
         kebab_case: "did-gateway",
+        snake_case: "did_gateway",
+        symbol: "DID",
         importPath: "@/lib/infrastructure/gateway/did-gateway/did-gateway",
         output_port: {
             name: "DIDGatewayOutputPort",
@@ -62,7 +65,10 @@ const Config: TConfig = {
     //         kebab_case: "get-subscriptions-pipeline-element",
     //         gateway: {
     //             name: "SubscriptionsGateway",
+    //             varCamelCase: "subscriptionsGateway",
     //             kebab_case: "subscriptions-gateway",
+    //             snake_case: "subscriptions_gateway",
+    //             symbol: SUBCRIPTIONS
     //             importPath: "@/lib/infrastructure/gateway/subscriptions",
     //             output_port: {
     //                 name: "SubscriptionsGatewayOutputPort",

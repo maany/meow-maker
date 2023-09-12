@@ -14,7 +14,10 @@ export type TValues = {
 
 export type TGateway = {
     name: string;
+    varCamelCase: string
     kebab_case: string;
+    snake_case: string;
+    symbol: string
     importPath: string;
     output_port: {
       name: string;

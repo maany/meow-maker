@@ -14,7 +14,7 @@ export type {{ feature.CamelCase}}ControllerParameters = TAuthenticatedControlle
 @injectable()
 class {{ feature.CamelCase}}Controller extends BaseController<{{ feature.CamelCase }}ControllerParameters, AuthenticatedRequestModel<{{ feature.CamelCase }}Request>> {
     constructor(
-        @inject(USECASE_FACTORY.{{ feature.CamelCase | capitalize }}) {{ feature.varCamelCase }}UseCaseFactory: (response: NextApiResponse) => {{ feature.CamelCase }}InputPort,
+        @inject(USECASE_FACTORY.{{ feature.snake_case | upcase }}) {{ feature.varCamelCase }}UseCaseFactory: (response: NextApiResponse) => {{ feature.CamelCase }}InputPort,
     ) {
         super({{ feature.varCamelCase }}UseCaseFactory);
     }
