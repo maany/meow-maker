@@ -5,7 +5,7 @@ import { AuthenticatedRequestModel } from "{{ imports.cats }}/usecase-models";
 import { BaseController, TAuthenticatedControllerParameters } from "{{ imports.cats }}/controller";
 import { {{ feature.CamelCase }}Request } from "{{ imports.usecase_models  }}/{{ feature.kebab_case  }}-usecase-models";
 import { {{ feature.CamelCase }}InputPort } from "{{ imports.primary_ports }}/{{ feature.kebab_case }}-ports";
-import USECASE_FACTORY from "../ioc/ioc-symbols-usecase-factory";
+import USECASE_FACTORY from "{{ imports.ioc }}/ioc-symbols-usecase-factory";
 
 export type {{ feature.CamelCase}}ControllerParameters = TAuthenticatedControllerParameters & {
    // TODO Add parameters here

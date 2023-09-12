@@ -53,6 +53,8 @@ export type TConfig = {
       presenter: string;
       controller: string;
       usecase: string;
+      feature: string;
+      ioc: string;
     };
     feature: {
       CamelCase: string;
