@@ -3,11 +3,11 @@ import {
     {{ feature.CamelCase }}Response,
 } from '{{ imports.usecase_models }}/{{ feature.kebab_case }}-usecase-models'
 import { NextApiResponse } from 'next'
-import { {{ viewModel.name }} } from '{{ viewModel.importPath }}'
+import { {{ viewModel.name }}, generateEmpty{{ viewModel.name }} } from '{{ viewModel.importPath }}'
 import { BaseStreamingPresenter } from '{{ imports.cats }}/presenter'
 import { {{ feature.CamelCase }}OutputPort } from '{{ imports.primary_ports }}/{{ feature.kebab_case }}-ports'
 
-export default class {{ feature.CamelCase }}Presenter extends BaseStreamingPresenter<{{ feature.CamelCase }}Response, {{ feature.CamelCase }}Error, {{ feature.CamelCase }}ViewModel> implements {{ feature.CamelCase }}OutputPort {
+export default class {{ feature.CamelCase }}Presenter extends BaseStreamingPresenter<{{ feature.CamelCase }}Response, {{ feature.CamelCase }}Error, {{ viewModel.name }}> implements {{ feature.CamelCase }}OutputPort {
     response: NextApiResponse<any>
 
     constructor(response: NextApiResponse) {
@@ -15,15 +15,15 @@ export default class {{ feature.CamelCase }}Presenter extends BaseStreamingPrese
         this.response = response
     }
 
-    streamResponseModelToViewModel(responseModel: {{ feature.CamelCase }}Response): {{ feature.CamelCase }}ViewModel {
-        const viewModel: {{ feature.CamelCase }}ViewModel = {
+    streamResponseModelToViewModel(responseModel: {{ feature.CamelCase }}Response): {{ viewModel.name }} {
+        const viewModel: {{ viewModel.name }} = {
             ...responseModel,
         }
         return viewModel
     }
 
-    streamErrorModelToViewModel(error: {{ feature.CamelCase }}Error): {{ feature.CamelCase }}ViewModel {
-        const viewModel: {{ viewModel.name }} = getEmpty{{ viewModel.name }}();
+    streamErrorModelToViewModel(error: {{ feature.CamelCase }}Error): {{ viewModel.name }} {
+        const viewModel: {{ viewModel.name }} = generateEmpty{{ viewModel.name }}();
         // TODO: add error handling
         return viewModel
     }
@@ -34,10 +34,10 @@ export default class {{ feature.CamelCase }}Presenter extends BaseStreamingPrese
      * @returns The error view model that represents the error model.
      */
      convertErrorModelToViewModel(errorModel: {{ feature.CamelCase }}Error): { viewModel: {{ viewModel.name }}; status: number; } {
-        const viewModel: {{ viewModel.name }} = getEmpty{{ viewModel.name }}();
+        const viewModel: {{ viewModel.name }} = generateEmpty{{ viewModel.name }}();
         let status = 400;
         // switch (errorModel.error) {
-            TODO: add error handling
+        // TODO: add error handling
         // }
         return {
             status: status,
