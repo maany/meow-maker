@@ -8,7 +8,6 @@ import { {{ feature.CamelCase }}InputPort } from "{{ imports.primary_ports }}/{{
 import USECASE_FACTORY from "{{ imports.ioc }}/ioc-symbols-usecase-factory";
 
 export type {{ feature.CamelCase}}ControllerParameters = TAuthenticatedControllerParameters & {
-    rucioAuthToken: string;
     // TODO Add parameters here
 };
 
