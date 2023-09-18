@@ -1,5 +1,6 @@
 import ControllerGenerator from './generators/controller'
 import { FeatureGenerator } from './generators/feature'
+import { NextJSEndpointGenerator } from './generators/nextjs_endpoint'
 import PresenterGenerator from './generators/presenter'
 import PrimaryPortsGenerator from './generators/primary-ports'
 import {
@@ -23,6 +24,7 @@ export enum ACTION {
     Usecase = 'usecase',
     Controller = 'controller',
     Feature = 'feature',
+    NextJSEndpoint = 'nextjs_endpoint'
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -34,6 +36,7 @@ export const steps: ReadonlyArray<any> = [
     ACTION.Usecase,
     ACTION.Controller,
     ACTION.Feature,
+    ACTION.NextJSEndpoint
 ]
 function usecaseModels(config: TConfig, write: boolean): TTemplateGeneratorOutput {
     const usecase_models_generator = new UseCaseModelsGenerator(config, write)
@@ -121,6 +124,15 @@ function feature(
     return featureStatus
 }
 
+function nextjs_endpoint(
+    config: TConfig,
+    write: boolean
+): TTemplateGeneratorOutput {
+    const endpoint = new NextJSEndpointGenerator(config, write)
+    const endpointStatus = endpoint.execute()
+    return endpointStatus
+}
+
 export function execute(
     step: ACTION,
     config: TConfig,
@@ -161,6 +173,9 @@ export function execute(
         case ACTION.Feature:
             output = feature(config, stream, write)
             break
+        case ACTION.NextJSEndpoint:
+            output = nextjs_endpoint(config, write)
+            break;
         default:
             throw new Error('Invalid step')
     }

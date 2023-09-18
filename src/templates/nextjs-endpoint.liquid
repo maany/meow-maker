@@ -1,0 +1,33 @@
+{% if nextjs_endpoint.with_session %}
+import { SessionUser } from "{{ imports.core }}/entity/auth-models";
+{% endif %}
+import { withAuthenticatedSessionRoute } from "{{ imports.infra }}/auth/session-utils";
+import { {{ feature.CamelCase }}ControllerParameters } from "{{ imports.controller }}/{{ feature.kebab_case }}-controller";
+import appContainer from "{{ imports.ioc }}/container-config";
+import CONTROLLERS from "{{ imports.ioc }}/ioc-symbols-controllers";
+import { BaseController } from "{{ imports.cats }}/controller";
+import { NextApiRequest, NextApiResponse } from "next";
+
+{% if nextjs_endpoint.with_session %}
+async function {{ feature.varCamelCase }}(req:NextApiRequest, res: NextApiResponse, rucioAuthToken: string, sessionUser?: SessionUser){
+{% else %}
+async function {{ feature.varCamelCase }}(req:NextApiRequest, res: NextApiResponse, rucioAuthToken: string){
+{% endif %}
+    if(req.method !== '{{ nextjs_endpoint.method }}') {
+        res.status(405).json({ error: 'Method Not Allowed' })
+        return
+    }
+
+    // TODO validate query parameters or body
+
+    const controllerParameters: {{ feature.CamelCase }}ControllerParameters = {
+        response: res,
+        rucioAuthToken: rucioAuthToken,
+        // TODO pass additional parameters to the controller
+    }
+
+    const controller = appContainer.get<BaseController<{{ feature.CamelCase }}ControllerParameters, void>>(CONTROLLERS.{{ feature.snake_case | upcase }})
+    await controller.execute(controllerParameters)
+}
+
+export default withAuthenticatedSessionRoute({{ feature.varCamelCase }})

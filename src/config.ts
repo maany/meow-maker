@@ -8,7 +8,8 @@ const Config: TConfig = {
         presenters_dir: `src/lib/infrastructure/presenter`,
         controllers_dir: `src/lib/infrastructure/controller`,
         usecases_dir: `src/lib/core/use-case`,
-        features_dir: `src/lib/infrastructure/ioc/features`
+        features_dir: `src/lib/infrastructure/ioc/features`,
+        nextjs_endpoint_dir: `src/pages/api/feature`
     },
     imports: {
         core: "@/lib/core",
@@ -24,41 +25,45 @@ const Config: TConfig = {
 
     },
     feature: {
-        CamelCase: "ListDIDParents",
-        varCamelCase: "listDIDParents",
-        snake_case: "list_did_parents",
-        kebab_case: "list-did-parents",
+        CamelCase: "ListDatasetReplicas",
+        varCamelCase: "listDatasetReplicas",
+        snake_case: "list_dataset_replicas",
+        kebab_case: "list-dataset-replicas",
     },
     viewModel: {
-        name: "DIDViewModel",
+        name: "DIDDatasetReplicasViewModel",
         importPath: "@/lib/infrastructure/data/view-model/did", 
-        filePath: "/Users/maany/Projects/webui/src/lib/infrastructure/data/view-model/did" // exact file path with the .ts extension
+        filePath: "/Users/maany/Projects/webui/src/lib/infrastructure/data/view-model/did.ts" // exact file path with the .ts extension
     },
     stream: {
         dto: {
-            name: "DIDParentDTO",
-            importPath: "@/lib/core/dto/did-dto",
-            filePath: "/Users/maany/Projects/webui/src/lib/core/dto/did-dto.ts"
+            name: "DatasetReplicasDTO",
+            importPath: "@/lib/core/dto/replica-dto",
+            filePath: "/Users/maany/Projects/webui/src/lib/core/dto/replica-dto.ts"
         }
     },
     gateway: {
-        name: "DIDGateway",
-        varCamelCase: "didGateway",
-        kebab_case: "did-gateway",
-        snake_case: "did_gateway",
-        symbol: "DID",
-        importPath: "@/lib/infrastructure/gateway/did-gateway/did-gateway",
+        name: "ReplicaGateway",
+        varCamelCase: "replicaGateway",
+        kebab_case: "replica-gateway",
+        snake_case: "replica_gateway",
+        symbol: "REPLICA",
+        importPath: "@/lib/infrastructure/gateway/replica-gateway/replica-gateway",
         output_port: {
-            name: "DIDGatewayOutputPort",
-            importPath: "@/lib/core/port/secondary/did-gateway-output-port",
+            name: "ReplicaGatewayOutputPort",
+            importPath: "@/lib/core/port/secondary/replica-gateway-output-port",
         },
-        endpoint_fn: "listDIDParents",
+        endpoint_fn: "listDatasetReplicas",
         dto: {
-            name: "ListDIDDTO",
-            importPath: "@/lib/core/dto/did-dto",
-            filePath: "/Users/maany/Projects/webui/src/lib/core/dto/did-dto.ts"
+            name: "ListReplicasDTO",
+            importPath: "@/lib/core/dto/replica-dto",
+            filePath: "/Users/maany/Projects/webui/src/lib/core/dto/replica-dto.ts"
         }
     },
+    nextjs_endpoint: {
+        with_session: false,
+        method: 'GET'
+    }
     // pipeline: [
     //     {
     //         name: "GetSubcriptionListDIDsPipelineElement",

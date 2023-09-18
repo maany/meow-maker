@@ -45,7 +45,8 @@ export type TConfig = {
       presenters_dir: string;
       controllers_dir: string;
       usecases_dir: string;
-      features_dir: string
+      features_dir: string;
+      nextjs_endpoint_dir: string;
     };
     imports: {
       core: string;
@@ -80,6 +81,10 @@ export type TConfig = {
     gateway?: TGateway
     pipeline?: [TPipelineElement]
     current_pipeline_element?: TPipelineElement 
+    nextjs_endpoint?: {
+      with_session: boolean,
+      method: 'GET' | 'POST'
+    }
 };
 
 export enum UseCaseTypes {
