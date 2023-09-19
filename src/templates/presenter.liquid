@@ -2,7 +2,7 @@ import { BasePresenter } from "{{ imports.cats }}/presenter";
 import { {{ feature.CamelCase }}Error, {{ feature.CamelCase }}Response } from "{{ imports.usecase_models }}/{{ feature.kebab_case }}-usecase-models";
 import { generateEmpty{{ viewModel.name }}, {{ viewModel.name }} } from "{{ viewModel.importPath }}";
 
-export default class {{ feature.CamelCase }}Presenter extends BasePresenter<{{ feature.CamelCase }}Response, {{ feature.CamelCase }}Error, SubscriptionViewModel> {
+export default class {{ feature.CamelCase }}Presenter extends BasePresenter<{{ feature.CamelCase }}Response, {{ feature.CamelCase }}Error, {{ viewModel.name }}> {
     convertResponseModelToViewModel(responseModel: {{ feature.CamelCase }}Response): { viewModel: {{ viewModel.name }}; status: number; } {
         const viewModel: {{ viewModel.name  }} = {
             ...responseModel,
