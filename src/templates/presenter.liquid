@@ -26,10 +26,9 @@ export default class {{ feature.CamelCase }}Presenter extends BasePresenter<{{ f
         // }
 
         // gateway errors
-        const message = errorModel.message ? errorModel.message.toString() : errorModel.name;
-        const name = errorModel.name ? errorModel.name : '';
+        const message = errorModel.message || errorModel.name;
         viewModel.message = message;
-        const errorCode = errorModel.code ? errorModel.code : 500;
+        const errorCode = errorModel.code || 500;
         return {
             status: errorCode,
             viewModel: viewModel
