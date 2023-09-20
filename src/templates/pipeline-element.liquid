@@ -29,7 +29,7 @@ export default class {{current_pipeline_element.name}} extends BasePostProcessin
             name: dto.name,
             error: error,
             code: dto.errorCode? dto.errorCode : 400,
-            message: dto.errorName + ': ' + dto.errorMessage + ',
+            message: dto.errorName + ': ' + dto.errorMessage  
         }
         return errorModel;
     }

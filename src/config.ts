@@ -63,31 +63,31 @@ const Config: TConfig = {
     nextjs_endpoint: {
         with_session: false,
         method: 'GET'
-    }
-    // pipeline: [
-    //     {
-    //         name: "GetSubcriptionListDIDsPipelineElement",
-    //         kebab_case: "get-subscriptions-pipeline-element",
-    //         gateway: {
-    //             name: "SubscriptionsGateway",
-    //             varCamelCase: "subscriptionsGateway",
-    //             kebab_case: "subscriptions-gateway",
-    //             snake_case: "subscriptions_gateway",
-    //             symbol: SUBCRIPTIONS
-    //             importPath: "@/lib/infrastructure/gateway/subscriptions",
-    //             output_port: {
-    //                 name: "SubscriptionsGatewayOutputPort",
-    //                 importPath: "@/lib/core/port/secondary/subscriptions-gateway-output-port",
-    //             },
-    //             endpoint_fn: "getSubscriptions",
-    //             dto: {
-    //                 name: "GetSubscriptionsDTO",
-    //                 importPath: "@/lib/core/data/dto/subscriptions",
-    //                 filePath: "/Users/maany/Projects/webui/tools/meow-maker/subscriptions.ts"
-    //             }
-    //         }
-    //     }
-    // ]
+    },
+    pipeline: [
+        {
+            name: "GetRSEPipelineElement",
+            kebab_case: "get-rse-pipeline-element",
+            gateway: {
+                name: "RSEGateway",
+                varCamelCase: "rseGateway",
+                kebab_case: "rse-gateway",
+                snake_case: "rse_gateway",
+                symbol: "RSE",
+                importPath: "@/lib/infrastructure/gateway/rse-gateway/rse-gateway",
+                output_port: {
+                    name: "RSEGatewayOutputPort",
+                    importPath: "@/lib/core/port/secondary/rse-gateway-output-port",
+                },
+                endpoint_fn: "getRSE",
+                dto: {
+                    name: "RSEDTO",
+                    importPath: "@/lib/core/dto/rse-dto",
+                    filePath: "/Users/maany/Projects/webui/src/lib/core/dto/rse-dto.ts"
+                }
+            }
+        }
+    ]
 }
 
 export default Config;

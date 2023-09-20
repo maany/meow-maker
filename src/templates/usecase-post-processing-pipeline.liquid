@@ -46,7 +46,7 @@ export default class {{ feature.CamelCase }}UseCase extends BaseSingleEndpointPo
                 name: dto.name,
                 error: error,
                 code: dto.errorCode? dto.errorCode : 400,
-                message: dto.errorName + ': ' + dto.errorMessage + ',
+                message: dto.errorName + ': ' + dto.errorMessage  
                 return errorModel;
             }
         }

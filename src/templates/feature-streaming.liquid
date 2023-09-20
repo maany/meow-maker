@@ -24,8 +24,7 @@ import {{feature.CamelCase}}UseCase from "{{imports.usecase}}/{{feature.kebab_ca
 import {{feature.CamelCase}}Presenter from "{{imports.presenter}}/{{feature.kebab_case}}-presenter"
 
 {% for pipelineElement in pipeline %}
-    import {{ pipelineElement.name }} from "./{{ pipelineElement.kebab_case }}";
-    import type {{ pipelineElement.gateway.output_port.name }} from "{{ pipelineElement.gateway.output_port.importPath }}";
+import type {{ pipelineElement.gateway.output_port.name }} from "{{ pipelineElement.gateway.output_port.importPath }}";
 {% endfor %}
 
 export default class {{feature.CamelCase}}Feature extends BaseStreamableFeature<
@@ -38,7 +37,7 @@ export default class {{feature.CamelCase}}Feature extends BaseStreamableFeature<
     constructor(appContainer: Container) {
         const {{gateway.varCamelCase}} = appContainer.get<{{gateway.output_port.name}}>(GATEWAYS.{{gateway.symbol | upcase}})
         {% for pipelineElement in pipeline %}
-        const {{ pipelineElement.gateway.varCamelCase }}: {{ pipelineElement.gateway.output_port.name }} = appContainer.get<{{pipelineElement.gateway.output_port.name}}>(GATEWAYS.{{ pipelineElement.gateway.symbol | upcase }}),
+        const {{ pipelineElement.gateway.varCamelCase }}: {{ pipelineElement.gateway.output_port.name }} = appContainer.get<{{pipelineElement.gateway.output_port.name}}>(GATEWAYS.{{ pipelineElement.gateway.symbol | upcase }})
         {% endfor %}
         const symbols: IOCSymbols = {
             CONTROLLER: CONTROLLERS.{{feature.snake_case | upcase }},
