@@ -42,7 +42,7 @@ export default class {{feature.CamelCase}}UseCase extends BaseSingleEndpointUseC
     processDTO(dto: {{gateway.dto.name}}): { data: {{feature.CamelCase}}Response | {{feature.CamelCase}}Error; status: "success" | "error"; } {
         // TODO: check if dto is error or response and populate the return model appropriately
         // copy all fields from dto to response model except success
-        const responseModel: GetSubscriptionResponse = {
+        const responseModel: {{feature.CamelCase}}Response = {
             ...dto,
             status: 'success',
         }

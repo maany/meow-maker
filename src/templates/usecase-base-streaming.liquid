@@ -24,6 +24,18 @@ export default class {{feature.CamelCase}}UseCase extends BaseStreamingUseCase<A
   }
   
   processStreamedData(dto: {{stream.dto.name}}): { data: {{feature.CamelCase}}Response | {{feature.CamelCase}}Error; status: "success" | "error"; } {
+    if(dto.status === 'error') {
+            const errorModel: {{ feature.CamelCase }}Error = {
+                    status: 'error',
+                    code: dto.errorCode || 500,
+                    message: dto.errorMessage || 'Could not fetch or process the fetched data',
+                    name: dto.errorName || 'Gateway Error',
+            }
+            return {
+                status: 'error',
+                data: errorModel,
+            }
+    }
     return {
         data: {
             ...dto

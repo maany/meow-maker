@@ -25,39 +25,39 @@ const Config: TConfig = {
 
     },
     feature: {
-        CamelCase: "ListDatasetReplicas",
-        varCamelCase: "listDatasetReplicas",
-        snake_case: "list_dataset_replicas",
-        kebab_case: "list-dataset-replicas",
+        CamelCase: "ListRSEs",
+        varCamelCase: "listRSEs",
+        snake_case: "list_rses",
+        kebab_case: "list-rses",
     },
     viewModel: {
-        name: "DIDDatasetReplicasViewModel",
-        importPath: "@/lib/infrastructure/data/view-model/did", 
-        filePath: "/Users/maany/Projects/webui/src/lib/infrastructure/data/view-model/did.ts" // exact file path with the .ts extension
+        name: "RSEViewModel",
+        importPath: "@/lib/infrastructure/data/view-model/rse", 
+        filePath: "/Users/maany/Projects/webui/src/lib/infrastructure/data/view-model/rse.ts" // exact file path with the .ts extension
     },
     stream: {
         dto: {
-            name: "DatasetReplicasDTO",
-            importPath: "@/lib/core/dto/replica-dto",
-            filePath: "/Users/maany/Projects/webui/src/lib/core/dto/replica-dto.ts"
+            name: "RSEDTO",
+            importPath: "@/lib/core/dto/rse-dto",
+            filePath: "/Users/maany/Projects/webui/src/lib/core/dto/rse-dto.ts"
         }
     },
     gateway: {
-        name: "ReplicaGateway",
-        varCamelCase: "replicaGateway",
-        kebab_case: "replica-gateway",
-        snake_case: "replica_gateway",
-        symbol: "REPLICA",
-        importPath: "@/lib/infrastructure/gateway/replica-gateway/replica-gateway",
+        name: "RSEGateway",
+        varCamelCase: "rseGateway",
+        kebab_case: "rse-gateway",
+        snake_case: "rse_gateway",
+        symbol: "RSE",
+        importPath: "@/lib/infrastructure/gateway/rse-gateway/rse-gateway",
         output_port: {
-            name: "ReplicaGatewayOutputPort",
-            importPath: "@/lib/core/port/secondary/replica-gateway-output-port",
+            name: "RSEGatewayOutputPort",
+            importPath: "@/lib/core/port/secondary/rse-gateway-output-port",
         },
-        endpoint_fn: "listDatasetReplicas",
+        endpoint_fn: "listRSEs",
         dto: {
-            name: "ListReplicasDTO",
-            importPath: "@/lib/core/dto/replica-dto",
-            filePath: "/Users/maany/Projects/webui/src/lib/core/dto/replica-dto.ts"
+            name: "ListRSEsDTO",
+            importPath: "@/lib/core/dto/rse-dto",
+            filePath: "/Users/maany/Projects/webui/src/lib/core/dto/rse-dto.ts"
         }
     },
     nextjs_endpoint: {
