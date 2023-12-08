@@ -15,6 +15,26 @@ Once you have cloned the repository, you can install the necessary dependencies 
 ```
 npm install
 ```
+### Configuration
+You can configure the templates used by the meow.js command-line tool by editing the src/config.ts file. 
+You would have to do `npm run build` each time you change this file.
+
+Alternatively, you can edit the dist/config.js file to avoid rebuilding the project on each change.
+
+### Building
+To build the project, you can run the following command:
+
+```
+npm run build
+```
+
+This will compile the TypeScript code and generate a dist directory containing the compiled JavaScript files.
+
+To execute the `meow.js` command line tool, you need to give the executable permission to the `meow.js` file. You can do this by running the following command:
+
+```
+chmod +x dist/meow.js
+```
 
 ### Usage
 To use the `meow.js` command-line tool, you can run the following command:
@@ -34,20 +54,7 @@ The available commands are:
 
 You can also use the -h option to display help information for the meow.js command-line tool.
 
-### Configuration
-You can configure the templates used by the meow.js command-line tool by editing the src/config.ts file. 
-You would have to do `npm run build` each time you change this file.
 
-Alternatively, you can edit the dist/config.js file to avoid rebuilding the project on each change.
-
-### Building
-To build the project, you can run the following command:
-
-```
-npm run build
-```
-
-This will compile the TypeScript code and generate a dist directory containing the compiled JavaScript files.
 
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details.
