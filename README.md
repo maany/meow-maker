@@ -16,6 +16,12 @@ Once you have cloned the repository, you can install the necessary dependencies 
 npm install
 ```
 ### Configuration
+
+First, copy the config.template.ts file to config.ts:
+```
+cp src/config.template.ts src/config.ts
+```
+
 You can configure the templates used by the meow.js command-line tool by editing the src/config.ts file. 
 You would have to do `npm run build` each time you change this file.
 
