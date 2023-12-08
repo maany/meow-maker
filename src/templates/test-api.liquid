@@ -1,0 +1,62 @@
+import appContainer from "@/lib/infrastructure/ioc/container-config";
+import { {{ feature.CamelCase }}Request } from "{{ imports.usecase_models }}/{{ feature.kebab_case }}-usecase-models";
+import { {{feature.CamelCase}}ControllerParameters } from "{{imports.controller}}/{{feature.kebab_case}}-controller"
+import {{feature.CamelCase}}Controller from "{{imports.controller}}/{{feature.kebab_case}}-controller"
+import CONTROLLERS from "{{imports.infra}}/ioc/ioc-symbols-controllers"
+import { BaseController } from "{{ imports.sdk }}/controller";
+import { {{ viewModel.name }} } from "{{ viewModel.importPath }}";
+
+import { NextApiResponse } from "next";
+import { createHttpMocks } from "{{ imports.tests_fixtures }}/http-fixtures";
+import MockHTTPServerFactory, { MockEndpoint } from "{{ imports.tests_fixtures }}/server";
+
+describe("Feature: {{ feature.CamelCase }}", () => {
+    beforeEach(() => {
+        fetchMock.doMock();
+        // TODO: add mock gateway endpoints here
+        
+        const {{ gateway.endpoint_fn }}MockEndpoint: MockEndpoint = {
+            // TODO: adjust includes, endsWith to match the endpoint you are specifying
+            url: `${MockHTTPServerFactory.HOST}/`,
+            method: 'GET',
+            includes: 'account',
+            response: {
+                status: 200,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                // TODO: add mock response here
+                body: JSON.stringify({
+                })
+            }
+        }
+        // TODO: register mock endpoints to the mock server here
+        MockHTTPServerFactory.createMockServer(true, [{{ gateway.endpoint_fn }}MockEndpoint]);
+    });
+
+    afterEach(() => {
+        fetchMock.dontMock();
+    });
+    
+    it("should return a view model for a valid request to {{ feature.CamelCase }} feature", async () => {
+        // TODO: adjust the nextjs_endpoint to match the endpoint you are testing
+        const { req, res, session } = await createHttpMocks('/api/did-meta', 'GET', {})
+        
+        const controller = appContainer.get<BaseController<{{feature.CamelCase}}ControllerParameters, {{ feature.CamelCase }}Request>>(CONTROLLERS.GET_ACCOUNT_INFO)
+        const controllerParameters: GetAccountInfoControllerParameters = {
+            response: res as unknown as NextApiResponse,
+            rucioAuthToken: MockHTTPServerFactory.VALID_TOKEN,
+            // TODO: add controller parameters here
+        }
+
+        await controller.execute(controllerParameters)
+        expect(res._getStatusCode()).toBe(200)
+        const data: {{ viewModel.name }} = await res._getJSONData()
+        expect(data.status).toBe('success')
+
+        expect(data).toEqual({
+            // TODO: add expected view model here
+        });
+
+    });
+});

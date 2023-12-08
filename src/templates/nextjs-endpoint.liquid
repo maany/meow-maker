@@ -4,6 +4,7 @@ import { SessionUser } from "{{ imports.core }}/entity/auth-models";
 import { withAuthenticatedSessionRoute } from "{{ imports.infra }}/auth/session-utils";
 import { {{ feature.CamelCase }}ControllerParameters } from "{{ imports.controller }}/{{ feature.kebab_case }}-controller";
 import appContainer from "{{ imports.ioc }}/container-config";
+import { {{ feature.CamelCase }}Request } from "{{ imports.usecase_models }}/{{ feature.kebab_case }}-usecase-models";
 import CONTROLLERS from "{{ imports.ioc }}/ioc-symbols-controllers";
 import { BaseController } from "{{ imports.cats }}/controller";
 import { NextApiRequest, NextApiResponse } from "next";
@@ -26,7 +27,7 @@ async function {{ feature.varCamelCase }}(req:NextApiRequest, res: NextApiRespon
         // TODO pass additional parameters to the controller
     }
 
-    const controller = appContainer.get<BaseController<{{ feature.CamelCase }}ControllerParameters, void>>(CONTROLLERS.{{ feature.snake_case | upcase }})
+    const controller = appContainer.get<BaseController<{{ feature.CamelCase }}ControllerParameters, {{ feature.CamelCase }}Request>>(CONTROLLERS.{{ feature.snake_case | upcase }})
     await controller.execute(controllerParameters)
 }
 

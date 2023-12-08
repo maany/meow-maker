@@ -47,6 +47,7 @@ export type TConfig = {
       usecases_dir: string;
       features_dir: string;
       nextjs_endpoint_dir: string;
+      tests_dir: string;
     };
     imports: {
       core: string;
@@ -59,6 +60,7 @@ export type TConfig = {
       usecase: string;
       feature: string;
       ioc: string;
+      tests_fixtures: string;
     };
     feature: {
       CamelCase: string;
@@ -84,6 +86,9 @@ export type TConfig = {
     nextjs_endpoint?: {
       with_session: boolean,
       method: 'GET' | 'POST'
+    },
+    api_test?: {
+      dir: string
     }
 };
 

@@ -51,6 +51,8 @@ The available commands are:
 - `make controller`: Generates controllers based on templates.
 - `make usecase`: Generates use cases based on templates.
 - `make feature`: Generates features based on templates.
+- `make nextjs_endpoint`: Generates the nextjs endpoint.
+- `make api_test`: Generates the api test based on templates.
 
 You can also use the -h option to display help information for the meow.js command-line tool.
 

@@ -1,3 +1,4 @@
+import APITestGenerator from './generators/api_test'
 import ControllerGenerator from './generators/controller'
 import { FeatureGenerator } from './generators/feature'
 import { NextJSEndpointGenerator } from './generators/nextjs_endpoint'
@@ -24,7 +25,8 @@ export enum ACTION {
     Usecase = 'usecase',
     Controller = 'controller',
     Feature = 'feature',
-    NextJSEndpoint = 'nextjs_endpoint'
+    NextJSEndpoint = 'nextjs_endpoint',
+    APITest = 'api_test',
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -36,8 +38,10 @@ export const steps: ReadonlyArray<any> = [
     ACTION.Usecase,
     ACTION.Controller,
     ACTION.Feature,
-    ACTION.NextJSEndpoint
+    ACTION.NextJSEndpoint,
+    ACTION.APITest,
 ]
+
 function usecaseModels(config: TConfig, write: boolean): TTemplateGeneratorOutput {
     const usecase_models_generator = new UseCaseModelsGenerator(config, write)
     const output = usecase_models_generator.execute()
@@ -133,6 +137,15 @@ function nextjs_endpoint(
     return endpointStatus
 }
 
+function apiTest(
+    config: TConfig,
+    write: boolean
+): TTemplateGeneratorOutput {
+    const api_test = new APITestGenerator(config, write)
+    const api_testStatus = api_test.execute()
+    return api_testStatus
+}
+
 export function execute(
     step: ACTION,
     config: TConfig,
@@ -175,6 +188,9 @@ export function execute(
             break
         case ACTION.NextJSEndpoint:
             output = nextjs_endpoint(config, write)
+            break;
+        case ACTION.APITest:
+            output = apiTest(config, write)
             break;
         default:
             throw new Error('Invalid step')
